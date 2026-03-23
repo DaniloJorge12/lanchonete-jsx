@@ -1,9 +1,6 @@
 import styles from './Comanda.module.css';
 
 function Comanda({ pedidos }) {
-    // 🧠 Lógica do Reduce:
-    // O 'acc' (acumulador) guarda a soma, começando em 0.
-    // Para cada 'item', multiplicamos o preço pela quantidade e somamos ao 'acc'.
     const valorTotal = pedidos.reduce((acc, item) => {
         return acc + item.precoUnitario * item.quantidade;
     }, 0);
@@ -16,7 +13,6 @@ function Comanda({ pedidos }) {
             </div>
 
             <ul className={styles.lista}>
-                {/* Usando .map() para exibir cada item da lista */}
                 {pedidos.map((item) => {
                     const subtotal = item.precoUnitario * item.quantidade;
 
@@ -26,7 +22,6 @@ function Comanda({ pedidos }) {
                                 <span>{item.quantidade}x</span>
                                 <span>{item.nome}</span>
                             </div>
-                            {/* O .toFixed(2) garante que mostre sempre 2 casas decimais */}
                             <span>R$ {subtotal.toFixed(2)}</span>
                         </li>
                     );
