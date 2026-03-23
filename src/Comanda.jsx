@@ -5,6 +5,15 @@ function Comanda({ pedidos }) {
         return acc + item.precoUnitario * item.quantidade;
     }, 0);
 
+    const taxa = valorTotal * 0.1;
+    const totalComTaxa = valorTotal + taxa;
+
+    const formatarMoeda = (valor) =>
+        new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+        }).format(valor);
+
     return (
         <div className={styles.recibo}>
             <div className={styles.cabecalho}>
@@ -22,7 +31,7 @@ function Comanda({ pedidos }) {
                                 <span>{item.quantidade}x</span>
                                 <span>{item.nome}</span>
                             </div>
-                            <span>R$ {subtotal.toFixed(2)}</span>
+                            <span>{formatarMoeda(subtotal)}</span>
                         </li>
                     );
                 })}
@@ -31,8 +40,11 @@ function Comanda({ pedidos }) {
             <hr className={styles.linhaDivisoria} />
 
             <div className={styles.totalDiv}>
+                <span>Taxa de 10%:</span>
+                <span className={styles.valorTotal}>{formatarMoeda(taxa)}</span>
+
                 <span>Total a Pagar:</span>
-                <span className={styles.valorTotal}>R$ {valorTotal.toFixed(2)}</span>
+                <span className={styles.valorTotal}>{formatarMoeda(totalComTaxa)}</span>
             </div>
         </div>
     );
